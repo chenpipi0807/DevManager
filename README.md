@@ -1,55 +1,52 @@
-# DevManager - 本地开发项目管理面板
+# DevManager
 
-一个极简的本地 GUI 工具，用于管理多个开发项目的前后端服务（启动/停止/日志/进程扫描）。
+本地开发项目管理工具，统一管理多个前后端项目的启动、停止和端口配置。
 
-<img width="1320" height="1086" alt="image" src="https://github.com/user-attachments/assets/1a8a312a-a64c-4e77-9d57-9742f38e1a0d" />
+## 核心功能
 
+### 项目管理
 
-## 功能
+- 自动检测前后端技术栈（FastAPI/Flask/Django + React/Vue/Vite）
+- 一键启动/停止项目所有服务
+- 实时查看服务日志
 
-- **项目管理**：添加/编辑/删除项目
-- **服务管理**：每个项目可配置前端/后端服务，独立启停
-- **智能识别**：选择项目路径后自动识别前后端（可手动修改）
-- **日志查看**：实时查看输出（自动限制行数，避免内存爆炸）
-- **进程扫描**：扫描系统中运行的开发进程，并按项目路径尝试匹配
+### 端口管理
+
+- 智能端口分配和冲突检测
+- 查看系统端口占用情况
+- 支持端口映射配置
+
+### Python环境
+
+- 自动检测系统Python环境
+- 为每个后端服务指定Python版本
 
 ## 快速开始
 
-### 1) 安装依赖
+### 安装依赖
 
-```powershell
-cd C:\DevManager
+```bash
 pip install -r requirements.txt
 ```
 
-### 2) 启动
+### 启动应用
 
-- **推荐**：双击 `start.bat`
-- 或在 PowerShell（已激活 conda/base）运行：
+```bash
+# Windows
+start.bat
 
-```powershell
-cd C:\DevManager
+# 或直接运行
 python main.py
 ```
 
+### 使用流程
+
+1. 点击「添加项目」选择项目目录
+2. 系统自动检测技术栈和端口配置
+3. 点击「启动」运行服务
+4. 通过「端口管理」查看端口使用情况
+
 ## 配置文件
 
-项目配置保存在 `projects.json`（程序运行后自动生成/更新）。
-
-## 常见问题
-
-### 运行时报 `No module named 'customtkinter'`
-
-说明你当前使用的 `python` 环境没有安装依赖。
-
-- 直接双击 `start.bat`
-- 或使用 Anaconda 的 Python 运行：
-
-```powershell
-C:\ProgramData\anaconda3\python.exe C:\DevManager\main.py
-```
-
-### 任务栏图标不显示
-
-已在程序内设置 Windows 的 AppUserModelID + `icon.ico`。
-如果仍未生效，尝试关闭所有 DevManager 进程后重新启动。
+- `projects_v2.json` - 项目配置
+- `port_config.json` - 端口分配记录

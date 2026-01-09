@@ -51,7 +51,19 @@ class ProcessManager:
             full_env.update(env)
 
         try:
-            # 启动进程
+            logs = deque(maxlen=self.MAX_LOG_LINES)
+            
+            # 记录启动信息
+            import datetime
+            startup_log = f"[{datetime.datetime.now().strftime('%H:%M:%S')}] 启动命令: {command}"
+            logs.append(startup_log)
+            self._notify_log(key, startup_log)
+            
+            cwd_log = f"[{datetime.datetime.now().strftime('%H:%M:%S')}] 工作目录: {cwd}"
+            logs.append(cwd_log)
+            self._notify_log(key, cwd_log)
+            
+            # 启动进程 - 使用无缓冲模式
             process = subprocess.Popen(
                 command,
                 shell=True,
@@ -60,11 +72,9 @@ class ProcessManager:
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
                 text=True,
-                bufsize=1,
+                bufsize=0,  # 无缓冲，立即捕获输出
                 creationflags=subprocess.CREATE_NEW_PROCESS_GROUP if os.name == 'nt' else 0
             )
-
-            logs = deque(maxlen=self.MAX_LOG_LINES)
 
             # 创建日志读取线程
             thread = threading.Thread(

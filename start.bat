@@ -1,5 +1,4 @@
 @echo off
 cd /d "%~dp0"
-call C:\ProgramData\anaconda3\Scripts\activate.bat
-python main.py
+"C:\ProgramData\anaconda3\python.exe" main.py
 pause

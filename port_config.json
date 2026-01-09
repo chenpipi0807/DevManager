@@ -1,0 +1,35 @@
+{
+  "allocations": [
+    {
+      "port": 8547,
+      "project_id": "fb7059b2-43c9-443e-a6a0-9717c6b7075a",
+      "project_name": "POLY-API跑批工具",
+      "service_key": "backend",
+      "service_name": "后端服务",
+      "tech_stack": "fastapi",
+      "allocated_at": "2026-01-08T20:17:52.552709",
+      "last_used": "2026-01-08T20:17:52.552709"
+    },
+    {
+      "port": 3764,
+      "project_id": "9dbef452-66d9-4cc5-9ef9-dc4458b9ac76",
+      "project_name": "Poly跑批工具",
+      "service_key": "frontend",
+      "service_name": "前端服务 (create-react-app)",
+      "tech_stack": "create-react-app",
+      "allocated_at": "2026-01-08T16:41:10.701497",
+      "last_used": "2026-01-08T16:41:10.701497"
+    },
+    {
+      "port": 3000,
+      "project_id": "fb7059b2-43c9-443e-a6a0-9717c6b7075a",
+      "project_name": "POLY-API跑批工具",
+      "service_key": "frontend",
+      "service_name": "前端服务",
+      "tech_stack": "create-react-app",
+      "allocated_at": "2026-01-08T20:17:52.653147",
+      "last_used": "2026-01-08T20:17:52.653147"
+    }
+  ],
+  "updated_at": "2026-01-08T20:17:52.653147"
+}
