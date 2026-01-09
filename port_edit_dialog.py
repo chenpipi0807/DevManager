@@ -5,7 +5,7 @@ import os
 import json
 import re
 from typing import Optional
-from models import Project, ServiceConfig, ProjectManager
+from enhanced_models import Project, ServiceConfig, enhanced_project_manager
 from port_detector import port_detector
 
 
@@ -17,11 +17,11 @@ class PortEditDialog(ctk.CTkToplevel):
         self.project = project
         self.service_key = service_key
         self.service = service
-        self.project_manager = ProjectManager()
+        self.project_manager = enhanced_project_manager
         
         self.title(f"修改端口 - {service.name or service_key}")
         self.geometry("600x500")
-        self.configure(fg_color="#1e1e1e")
+        self.configure(fg_color="#FAFAFA")
         
         self.transient(master)
         self.grab_set()
@@ -35,18 +35,61 @@ class PortEditDialog(ctk.CTkToplevel):
         title_label.pack(pady=(20, 10))
         
         # 当前端口信息
-        info_frame = ctk.CTkFrame(self, fg_color="#252526", corner_radius=8)
+        info_frame = ctk.CTkFrame(self, fg_color="#FFFFFF", corner_radius=8, border_width=1, border_color="#E5E5E5")
         info_frame.pack(fill="x", padx=20, pady=(0, 20))
         
         # 兼容新旧ServiceConfig
         current_port = getattr(service, 'port', None) or (service.port_config.port if hasattr(service, 'port_config') and service.port_config else None)
+        original_port = None
+        if hasattr(service, 'port_config') and service.port_config:
+            original_port = service.port_config.original_port
         
-        ctk.CTkLabel(
-            info_frame,
-            text=f"当前端口: {current_port}",
-            font=ctk.CTkFont(size=14, weight="bold"),
-            text_color="#4ec9b0"
-        ).pack(pady=(10, 5), padx=15, anchor="w")
+        # 如果original_port为空，尝试重新检测端口作为原始端口
+        if original_port is None:
+            project_path = self.project.path
+            if self.service_key == "frontend":
+                result = port_detector.detect_frontend_port(project_path)
+            else:
+                result = port_detector.detect_backend_port(project_path)
+            
+            if result and result.port:
+                original_port = result.port
+                # 保存检测到的原始端口
+                if hasattr(service, 'port_config') and service.port_config:
+                    service.port_config.original_port = original_port
+                    self.project_manager.update(self.project)
+        
+        # 始终显示原始端口和当前端口
+        if original_port:
+            ctk.CTkLabel(
+                info_frame,
+                text=f"原始端口: {original_port}",
+                font=ctk.CTkFont(size=13),
+                text_color="#8E8E93"
+            ).pack(pady=(10, 2), padx=15, anchor="w")
+            
+            # 如果端口被修改过，用不同颜色标识
+            if original_port != current_port:
+                port_color = "#FF6B6B"  # 红色表示已修改
+                port_text = f"当前端口: {current_port} (已修改)"
+            else:
+                port_color = "#000000"
+                port_text = f"当前端口: {current_port}"
+            
+            ctk.CTkLabel(
+                info_frame,
+                text=port_text,
+                font=ctk.CTkFont(size=14, weight="bold"),
+                text_color=port_color
+            ).pack(pady=(2, 5), padx=15, anchor="w")
+        else:
+            # 如果没有原始端口信息，只显示当前端口
+            ctk.CTkLabel(
+                info_frame,
+                text=f"当前端口: {current_port}",
+                font=ctk.CTkFont(size=14, weight="bold"),
+                text_color="#000000"
+            ).pack(pady=(10, 5), padx=15, anchor="w")
         
         # 检测端口来源
         port_result = self._detect_port_source()
@@ -55,7 +98,7 @@ class PortEditDialog(ctk.CTkToplevel):
                 info_frame,
                 text=f"来源: {port_result['source']}",
                 font=ctk.CTkFont(size=12),
-                text_color="#858585"
+                text_color="#8E8E93"
             ).pack(pady=(0, 5), padx=15, anchor="w")
             
             if port_result['file_path']:
@@ -63,7 +106,7 @@ class PortEditDialog(ctk.CTkToplevel):
                     info_frame,
                     text=f"文件: {port_result['file_path']}",
                     font=ctk.CTkFont(size=11, family="Consolas"),
-                    text_color="#858585"
+                    text_color="#8E8E93"
                 ).pack(pady=(0, 10), padx=15, anchor="w")
         
         # 新端口输入
@@ -87,13 +130,14 @@ class PortEditDialog(ctk.CTkToplevel):
         self.current_port = current_port
         
         # 修改方式选择
-        method_frame = ctk.CTkFrame(self, fg_color="#252526", corner_radius=8)
+        method_frame = ctk.CTkFrame(self, fg_color="#FFFFFF", corner_radius=8, border_width=1, border_color="#E5E5E5")
         method_frame.pack(fill="both", expand=True, padx=20, pady=(0, 20))
         
         ctk.CTkLabel(
             method_frame,
             text="修改方式:",
-            font=ctk.CTkFont(size=14, weight="bold")
+            font=ctk.CTkFont(size=14, weight="bold"),
+            text_color="#000000"
         ).pack(pady=(15, 10), padx=15, anchor="w")
         
         self.method_var = ctk.StringVar(value="devmanager")
@@ -112,7 +156,7 @@ class PortEditDialog(ctk.CTkToplevel):
             method_frame,
             text="不修改项目源码，只在 DevManager 中记录新端口",
             font=ctk.CTkFont(size=11),
-            text_color="#858585"
+            text_color="#8E8E93"
         ).pack(pady=(0, 15), padx=40, anchor="w")
         
         # 选项2: 修改配置文件
@@ -129,7 +173,7 @@ class PortEditDialog(ctk.CTkToplevel):
             method_frame,
             text="直接修改 vite.config.js、.env、main.py 等配置文件",
             font=ctk.CTkFont(size=11),
-            text_color="#858585"
+            text_color="#8E8E93"
         ).pack(pady=(0, 15), padx=40, anchor="w")
         
         # 警告提示
@@ -137,7 +181,7 @@ class PortEditDialog(ctk.CTkToplevel):
             self,
             text="⚠️ 修改配置文件会直接修改项目源码，请确保已备份",
             font=ctk.CTkFont(size=11),
-            text_color="#ce9178"
+            text_color="#666666"
         )
         warning_label.pack(pady=(0, 20))
         
@@ -150,8 +194,11 @@ class PortEditDialog(ctk.CTkToplevel):
             text="取消",
             width=100,
             height=35,
-            fg_color="#6c757d",
-            hover_color="#5a6268",
+            fg_color="#FFFFFF",
+            hover_color="#F5F5F5",
+            text_color="#000000",
+            border_width=1,
+            border_color="#E5E5E5",
             command=self.destroy
         ).pack(side="right", padx=(10, 0))
         
@@ -160,8 +207,9 @@ class PortEditDialog(ctk.CTkToplevel):
             text="确认修改",
             width=120,
             height=35,
-            fg_color="#007acc",
-            hover_color="#0098ee",
+            fg_color="#000000",
+            hover_color="#333333",
+            text_color="#FFFFFF",
             command=self.apply_changes
         ).pack(side="right")
     
@@ -341,6 +389,9 @@ class PortEditDialog(ctk.CTkToplevel):
         """更新 DevManager 配置"""
         # 更新服务端口（兼容新旧结构）
         if hasattr(self.service, 'port_config') and self.service.port_config:
+            # 如果是第一次修改端口，保存原始端口
+            if self.service.port_config.original_port is None:
+                self.service.port_config.original_port = self.service.port_config.port
             self.service.port_config.port = new_port
         else:
             self.service.port = new_port

@@ -187,13 +187,16 @@ class EnhancedProjectFormDialog(ctk.CTkToplevel):
         port_row = ctk.CTkFrame(port_frame, fg_color="transparent")
         port_row.pack(fill="x", padx=10, pady=(0, 5))
         
-        ctk.CTkLabel(port_row, text="端口:", text_color="#cccccc").pack(side="left")
-        self.backend_port = ctk.CTkEntry(port_row, width=80, height=30, placeholder_text="8000")
+        ctk.CTkLabel(port_row, text="端口:", text_color="#8E8E93").pack(side="left", padx=(10, 0))
+        self.backend_port = ctk.CTkEntry(port_row, width=100, height=30, placeholder_text="8000")
         self.backend_port.pack(side="left", padx=5)
         
-        ctk.CTkLabel(port_row, text="映射端口:", text_color="#cccccc").pack(side="left", padx=(15, 0))
-        self.backend_mapped_port = ctk.CTkEntry(port_row, width=80, height=30, placeholder_text="留空")
-        self.backend_mapped_port.pack(side="left", padx=5)
+        ctk.CTkLabel(
+            port_row,
+            text="(启动命令会使用此端口)",
+            text_color="#8E8E93",
+            font=ctk.CTkFont(size=10)
+        ).pack(side="left", padx=(10, 0))
         
         self.backend_port_source = ctk.CTkLabel(
             port_frame,
@@ -291,13 +294,16 @@ class EnhancedProjectFormDialog(ctk.CTkToplevel):
         port_row = ctk.CTkFrame(port_frame, fg_color="transparent")
         port_row.pack(fill="x", padx=10, pady=(0, 5))
         
-        ctk.CTkLabel(port_row, text="端口:", text_color="#cccccc").pack(side="left")
-        self.frontend_port = ctk.CTkEntry(port_row, width=80, height=30, placeholder_text="5173")
+        ctk.CTkLabel(port_row, text="端口:", text_color="#8E8E93").pack(side="left", padx=(10, 0))
+        self.frontend_port = ctk.CTkEntry(port_row, width=100, height=30, placeholder_text="5173")
         self.frontend_port.pack(side="left", padx=5)
         
-        ctk.CTkLabel(port_row, text="映射端口:", text_color="#cccccc").pack(side="left", padx=(15, 0))
-        self.frontend_mapped_port = ctk.CTkEntry(port_row, width=80, height=30, placeholder_text="留空")
-        self.frontend_mapped_port.pack(side="left", padx=5)
+        ctk.CTkLabel(
+            port_row,
+            text="(启动命令会使用此端口)",
+            text_color="#8E8E93",
+            font=ctk.CTkFont(size=10)
+        ).pack(side="left", padx=(10, 0))
         
         self.frontend_port_source = ctk.CTkLabel(
             port_frame,
@@ -523,8 +529,6 @@ class EnhancedProjectFormDialog(ctk.CTkToplevel):
             
             if backend.port_config:
                 self.backend_port.insert(0, str(backend.port_config.port))
-                if backend.port_config.mapped_port:
-                    self.backend_mapped_port.insert(0, str(backend.port_config.mapped_port))
             
             if backend.python_env:
                 for i, env in enumerate(self.python_envs_list):
@@ -546,8 +550,6 @@ class EnhancedProjectFormDialog(ctk.CTkToplevel):
             
             if frontend.port_config:
                 self.frontend_port.insert(0, str(frontend.port_config.port))
-                if frontend.port_config.mapped_port:
-                    self.frontend_mapped_port.insert(0, str(frontend.port_config.mapped_port))
         
         # 元数据
         if p.metadata.tags:
@@ -1009,15 +1011,7 @@ class EnhancedProjectFormDialog(ctk.CTkToplevel):
             if port_str:
                 try:
                     port = int(port_str)
-                    mapped_port = None
-                    mapped_str = self.backend_mapped_port.get().strip()
-                    if mapped_str:
-                        mapped_port = int(mapped_str)
-                    
-                    backend.port_config = PortConfig(
-                        port=port,
-                        mapped_port=mapped_port
-                    )
+                    backend.port_config = PortConfig(port=port)
                 except ValueError:
                     messagebox.showwarning("提示", "后端端口必须是数字")
                     return
@@ -1051,15 +1045,7 @@ class EnhancedProjectFormDialog(ctk.CTkToplevel):
             if port_str:
                 try:
                     port = int(port_str)
-                    mapped_port = None
-                    mapped_str = self.frontend_mapped_port.get().strip()
-                    if mapped_str:
-                        mapped_port = int(mapped_str)
-                    
-                    frontend.port_config = PortConfig(
-                        port=port,
-                        mapped_port=mapped_port
-                    )
+                    frontend.port_config = PortConfig(port=port)
                 except ValueError:
                     messagebox.showwarning("提示", "前端端口必须是数字")
                     return

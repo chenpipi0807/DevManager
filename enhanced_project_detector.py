@@ -193,7 +193,7 @@ class EnhancedProjectDetector:
         return project_path
     
     def _detect_frontend(self, project_path: str) -> Optional[DetectedService]:
-        """检测前端服务"""
+        """检测前端服务（支持多层级搜索）"""
         # 搜索package.json（支持多层级）
         package_json = None
         frontend_dir = project_path
@@ -203,9 +203,17 @@ class EnhancedProjectDetector:
             package_json = os.path.join(project_path, "package.json")
             frontend_dir = project_path
         else:
-            # 搜索子目录（常见的前端目录名）
-            for subdir in ['frontend', 'front', 'web', 'client', 'ui', 'app']:
-                subdir_path = os.path.join(project_path, subdir)
+            # 搜索子目录（常见的前端目录名，支持两层深度）
+            search_patterns = [
+                # 一层目录
+                'frontend', 'front', 'web', 'client', 'ui', 'app',
+                # 两层目录（常见模式）
+                'web_app/frontend', 'web/frontend', 'app/frontend',
+                'web_app/front', 'web/client', 'app/web'
+            ]
+            
+            for pattern in search_patterns:
+                subdir_path = os.path.join(project_path, pattern)
                 pkg_path = os.path.join(subdir_path, "package.json")
                 if os.path.exists(pkg_path):
                     package_json = pkg_path
@@ -242,6 +250,7 @@ class EnhancedProjectDetector:
         if port_result and port_result.port:
             port_config = PortConfig(
                 port=port_result.port,
+                original_port=port_result.port,  # 保存原始检测到的端口
                 detected_port=port_result.port,
                 port_source=port_result.source,
                 port_source_file=port_result.details,
@@ -252,6 +261,7 @@ class EnhancedProjectDetector:
             default_port = 5173 if tech_stack == "vite" else 3000
             port_config = PortConfig(
                 port=default_port,
+                original_port=default_port,  # 默认端口也记录为原始端口
                 port_source="默认端口",
                 confidence=0.3
             )
@@ -290,30 +300,30 @@ class EnhancedProjectDetector:
         tech_stack = "python"
         
         # 常见的后端目录名和启动文件名
-        backend_subdirs = ['backend', 'back', 'server', 'api', 'app', 'src']
         startup_filenames = ['main.py', 'app.py', 'run.py', 'server.py', 'manage.py', 'start.py', 'index.py']
         
-        # 1. 先在根目录查找启动文件
-        for filename in startup_filenames:
-            filepath = os.path.join(project_path, filename)
-            if os.path.exists(filepath):
-                startup_file = filepath
-                backend_dir = project_path
-                break
+        # 搜索模式（支持一层和两层目录）
+        search_patterns = [
+            '',  # 根目录
+            # 一层目录
+            'backend', 'back', 'server', 'api', 'app', 'src',
+            # 两层目录（常见模式）
+            'web_app/backend', 'web/backend', 'app/backend',
+            'web_app/server', 'web/api', 'app/api'
+        ]
         
-        # 2. 如果根目录没找到，搜索子目录
-        if not startup_file:
-            for subdir in backend_subdirs:
-                subdir_path = os.path.join(project_path, subdir)
-                if os.path.exists(subdir_path):
-                    for filename in startup_filenames:
-                        filepath = os.path.join(subdir_path, filename)
-                        if os.path.exists(filepath):
-                            startup_file = filepath
-                            backend_dir = subdir_path
-                            break
-                    if startup_file:
+        # 1. 按搜索模式查找启动文件
+        for pattern in search_patterns:
+            search_dir = os.path.join(project_path, pattern) if pattern else project_path
+            if os.path.exists(search_dir):
+                for filename in startup_filenames:
+                    filepath = os.path.join(search_dir, filename)
+                    if os.path.exists(filepath):
+                        startup_file = filepath
+                        backend_dir = search_dir
                         break
+                if startup_file:
+                    break
         
         # 3. 如果还是没找到，递归搜索所有Python文件
         if not startup_file:
@@ -351,6 +361,7 @@ class EnhancedProjectDetector:
         if port_result and port_result.port:
             port_config = PortConfig(
                 port=port_result.port,
+                original_port=port_result.port,  # 保存原始检测到的端口
                 detected_port=port_result.port,
                 port_source=port_result.source,
                 port_source_file=port_result.details,
@@ -361,6 +372,7 @@ class EnhancedProjectDetector:
             default_port = 8000
             port_config = PortConfig(
                 port=default_port,
+                original_port=default_port,  # 默认端口也记录为原始端口
                 port_source="默认端口",
                 confidence=0.3
             )

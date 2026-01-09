@@ -292,7 +292,7 @@ class PortManager:
             self.save()
     
     def check_conflicts(self, projects: List) -> List[Dict]:
-        """检查所有项目的端口冲突"""
+        """检查所有项目的端口冲突（跳过已修改端口的服务）"""
         conflicts = []
         port_usage = {}
         
@@ -304,6 +304,15 @@ class PortManager:
                 # 兼容新旧ServiceConfig
                 port = getattr(service, 'port', None) or (service.port_config.port if hasattr(service, 'port_config') and service.port_config else None)
                 if not port:
+                    continue
+                
+                # 检查端口是否已被修改（如果已修改，说明用户已解决冲突，跳过）
+                original_port = None
+                if hasattr(service, 'port_config') and service.port_config:
+                    original_port = service.port_config.original_port
+                
+                # 如果端口已被修改，不计入冲突检测
+                if original_port and original_port != port:
                     continue
                 
                 if port not in port_usage:

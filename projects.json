@@ -1,54 +1,78 @@
 {
   "projects": [
     {
-      "id": "48f0b652-b0d7-4069-ac09-b7954fa10b2e",
-      "name": "Manim-H",
+      "id": "fb7059b2-43c9-443e-a6a0-9717c6b7075a",
+      "name": "POLY-API跑批工具",
       "description": "",
-      "path": "C:/Manim-H",
-      "created_at": "2025-12-12T11:06:37.223339",
+      "path": "C:/Batch-API",
       "services": {
         "backend": {
-          "enabled": 1,
-          "name": "前端服务 (vite)",
-          "command": "python main.py",
-          "cwd": "C:\\Manim-H\\web_app\\backend",
-          "port": 8000,
-          "env": {}
+          "enabled": true,
+          "name": "后端服务",
+          "service_type": "backend",
+          "tech_stack": "python",
+          "working_dir": "C:/Batch-API\\backend",
+          "startup_file": "C:/Batch-API\\backend\\run.py",
+          "command": "\"C:\\ProgramData\\anaconda3\\python.exe\" run.py",
+          "command_template": "{python_env} run.py",
+          "port_config": {
+            "port": 8547,
+            "detected_port": null,
+            "port_source": "",
+            "port_source_file": "",
+            "mapped_port": null,
+            "confidence": 0.0
+          },
+          "python_env": {
+            "path": "C:\\ProgramData\\anaconda3\\python.exe",
+            "name": "anaconda3",
+            "version": "Python 3.12.4",
+            "is_conda": true
+          },
+          "env_vars": {},
+          "depends_on": [],
+          "log_file": "logs/POLY-API跑批工具_backend.log",
+          "log_level": "INFO",
+          "auto_detected": false,
+          "last_modified": "2026-01-08T18:46:27.728109"
         },
         "frontend": {
-          "enabled": 1,
-          "name": "前端服务 (vite)",
-          "command": "npm run dev",
-          "cwd": "C:\\Manim-H\\web_app\\frontend",
-          "port": 5173,
-          "env": {}
+          "enabled": true,
+          "name": "前端服务",
+          "service_type": "frontend",
+          "tech_stack": "react",
+          "working_dir": "C:/Batch-API\\frontend",
+          "startup_file": "C:/Batch-API\\frontend\\package.json",
+          "command": "npm start",
+          "command_template": "npm run dev",
+          "port_config": {
+            "port": 3444,
+            "detected_port": null,
+            "port_source": "",
+            "port_source_file": "",
+            "mapped_port": null,
+            "confidence": 0.0
+          },
+          "python_env": null,
+          "env_vars": {},
+          "depends_on": [],
+          "log_file": "logs/POLY-API跑批工具_frontend.log",
+          "log_level": "INFO",
+          "auto_detected": false,
+          "last_modified": "2026-01-08T18:46:27.728109"
         }
-      }
-    },
-    {
-      "id": "ceca61f9-fdf2-4ab3-a2f9-7c265a92ba0e",
-      "name": "Manim-Y项目",
-      "description": "",
-      "path": "C:/ManimV2",
-      "created_at": "2025-12-12T11:13:02.141304",
-      "services": {
-        "backend": {
-          "enabled": 1,
-          "name": "前端服务 (vite)",
-          "command": "python main.py",
-          "cwd": "C:\\ManimV2\\web_app\\backend",
-          "port": 8001,
-          "env": {}
-        },
-        "frontend": {
-          "enabled": 1,
-          "name": "前端服务 (vite)",
-          "command": "npm run dev",
-          "cwd": "C:\\ManimV2\\web_app\\frontend",
-          "port": 5173,
-          "env": {}
-        }
-      }
+      },
+      "metadata": {
+        "tags": [],
+        "category": "",
+        "priority": "normal",
+        "status": "active",
+        "notes": ""
+      },
+      "created_at": "2026-01-08T18:46:27.728109",
+      "updated_at": "2026-01-08T18:46:27.728109",
+      "last_run_at": null,
+      "config_version": "2.0"
     }
   ]
 }

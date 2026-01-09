@@ -320,32 +320,42 @@ class PortDetector:
                 continue
             
             try:
-                with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
-                    content = f.read()
+                # 限制读取大小，避免超大文件（只读取最后100KB，通常app.run在文件末尾）
+                file_size = os.path.getsize(file_path)
+                if file_size > 500 * 1024:  # 如果文件大于500KB
+                    with open(file_path, 'rb') as f:
+                        # 读取文件末尾100KB
+                        f.seek(max(0, file_size - 100 * 1024))
+                        content = f.read().decode('utf-8', errors='ignore')
+                else:
+                    with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
+                        content = f.read()
                 
-                # 匹配各种端口定义方式
+                # 匹配各种端口定义方式（按优先级排序）
                 patterns = [
-                    # uvicorn.run(app, host="0.0.0.0", port=8000)
-                    r'uvicorn\.run\([^)]*port\s*=\s*(\d+)',
-                    # app.run(port=5000)
-                    r'\.run\([^)]*port\s*=\s*(\d+)',
-                    # PORT = 8000
-                    r'^PORT\s*=\s*(\d+)',
-                    # port = 8000
-                    r'^port\s*=\s*(\d+)',
-                    # --port 8000 (命令行参数)
-                    r'--port[=\s]+(\d+)',
+                    # 1. app.run(port=5000) 或 app.run(debug=True, port=5000) - 最高优先级
+                    (r'\.run\([^)]*\bport\s*=\s*(\d+)', 0.95, "从 app.run() 读取"),
+                    # 2. uvicorn.run(app, host="0.0.0.0", port=8000)
+                    (r'uvicorn\.run\([^)]*\bport\s*=\s*(\d+)', 0.95, "从 uvicorn.run() 读取"),
+                    # 3. cfg.get('port', 8123) 或 config.get('settings', {}).get('port', 8123)
+                    (r'\.get\([\'"]port[\'"]\s*,\s*(\d+)\)', 0.9, "从配置读取默认端口"),
+                    # 4. PORT = 8000 (全局变量)
+                    (r'^\s*PORT\s*=\s*(\d+)', 0.8, "从全局变量 PORT 读取"),
+                    # 5. port = 8000 (变量)
+                    (r'^\s*port\s*=\s*(\d+)', 0.7, "从变量 port 读取"),
+                    # 6. --port 8000 (命令行参数)
+                    (r'--port[=\s]+(\d+)', 0.6, "从命令行参数读取"),
                 ]
                 
-                for pattern in patterns:
+                for pattern, confidence, details in patterns:
                     match = re.search(pattern, content, re.MULTILINE | re.IGNORECASE)
                     if match:
                         port = int(match.group(1))
                         return PortDetectionResult(
                             port=port,
                             source=entry_file,
-                            confidence=0.9,
-                            details=f"从 Python 源码读取"
+                            confidence=confidence,
+                            details=details
                         )
                 
                 # 检查环境变量引用

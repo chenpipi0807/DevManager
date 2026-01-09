@@ -7,8 +7,8 @@
       "service_key": "backend",
       "service_name": "后端服务",
       "tech_stack": "fastapi",
-      "allocated_at": "2026-01-08T20:17:52.552709",
-      "last_used": "2026-01-08T20:17:52.552709"
+      "allocated_at": "2026-01-09T13:15:45.166508",
+      "last_used": "2026-01-09T13:15:45.166508"
     },
     {
       "port": 3764,
@@ -27,9 +27,59 @@
       "service_key": "frontend",
       "service_name": "前端服务",
       "tech_stack": "create-react-app",
-      "allocated_at": "2026-01-08T20:17:52.653147",
-      "last_used": "2026-01-08T20:17:52.653147"
+      "allocated_at": "2026-01-09T11:41:38.962786",
+      "last_used": "2026-01-09T11:41:38.962786"
+    },
+    {
+      "port": 3444,
+      "project_id": "fb7059b2-43c9-443e-a6a0-9717c6b7075a",
+      "project_name": "POLY-API跑批工具",
+      "service_key": "frontend",
+      "service_name": "前端服务",
+      "tech_stack": "create-react-app",
+      "allocated_at": "2026-01-09T13:15:45.226672",
+      "last_used": "2026-01-09T13:15:45.226672"
+    },
+    {
+      "port": 8462,
+      "project_id": "36cb1646-1bd1-4267-9125-2a075ce643d0",
+      "project_name": "二狗子-群发机器人",
+      "service_key": "backend",
+      "service_name": "后端服务",
+      "tech_stack": "python",
+      "allocated_at": "2026-01-09T12:00:27.300992",
+      "last_used": "2026-01-09T12:00:27.300992"
+    },
+    {
+      "port": 8000,
+      "project_id": "f51d7b4a-11eb-419f-8dfb-6b473fff331e",
+      "project_name": "Y-英语",
+      "service_key": "backend",
+      "service_name": "后端服务",
+      "tech_stack": "python",
+      "allocated_at": "2026-01-09T12:03:35.003153",
+      "last_used": "2026-01-09T12:03:35.003153"
+    },
+    {
+      "port": 8661,
+      "project_id": "095a5c46-4049-42c4-9572-04953e0f2238",
+      "project_name": "seedance1.5",
+      "service_key": "backend",
+      "service_name": "后端服务",
+      "tech_stack": "fastapi",
+      "allocated_at": "2026-01-09T13:19:31.285105",
+      "last_used": "2026-01-09T13:19:31.285105"
+    },
+    {
+      "port": 5173,
+      "project_id": "095a5c46-4049-42c4-9572-04953e0f2238",
+      "project_name": "seedance1.5",
+      "service_key": "frontend",
+      "service_name": "前端服务",
+      "tech_stack": "vite",
+      "allocated_at": "2026-01-09T13:19:31.341091",
+      "last_used": "2026-01-09T13:19:31.341091"
     }
   ],
-  "updated_at": "2026-01-08T20:17:52.653147"
+  "updated_at": "2026-01-09T13:19:31.341091"
 }

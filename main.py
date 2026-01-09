@@ -100,6 +100,10 @@ class ServiceFrame(ctk.CTkFrame):
 
         # 端口（带背景标签）
         port = getattr(service, 'port', None) or (service.port_config.port if hasattr(service, 'port_config') and service.port_config else None)
+        original_port = None
+        if hasattr(service, 'port_config') and service.port_config:
+            original_port = service.port_config.original_port
+        
         if port:
             port_frame = ctk.CTkFrame(
                 content,
@@ -109,10 +113,18 @@ class ServiceFrame(ctk.CTkFrame):
             )
             port_frame.pack(side="left", padx=(10, 0))
             
+            # 显示端口：如果有修改，显示"原始→当前"，否则只显示当前端口
+            if original_port and original_port != port:
+                port_text = f":{original_port} → :{port}"
+                text_color = COLORS["accent_orange"]  # 修改过的端口用橙色标识
+            else:
+                port_text = f":{port}"
+                text_color = COLORS["accent_blue"]
+            
             port_label = ctk.CTkLabel(
                 port_frame,
-                text=f":{port}",
-                text_color=COLORS["accent_blue"],
+                text=port_text,
+                text_color=text_color,
                 font=ctk.CTkFont(size=11, weight="bold", family="Consolas"),
                 padx=8,
                 pady=2
@@ -255,12 +267,40 @@ class ServiceFrame(ctk.CTkFrame):
                 tech_stack
             )
 
+        # 生成实际的启动命令（使用command_template并替换变量）
+        actual_command = self.service.command
+        if hasattr(self.service, 'command_template') and self.service.command_template:
+            # 准备替换变量
+            replacements = {}
+            if service_port:
+                replacements['port'] = str(service_port)
+            if hasattr(self.service, 'python_env') and self.service.python_env:
+                replacements['python_env'] = f'"{self.service.python_env.path}"'
+            
+            # 替换模板中的变量
+            actual_command = self.service.command_template
+            for key, value in replacements.items():
+                actual_command = actual_command.replace(f'{{{key}}}', value)
+
         cwd = getattr(self.service, 'cwd', None) or getattr(self.service, 'working_dir', None) or self.project.path
         env_vars = getattr(self.service, 'env', None) or getattr(self.service, 'env_vars', {})
+        if env_vars is None:
+            env_vars = {}
+        
+        # 为不同类型的服务添加端口环境变量
+        if service_port:
+            if self.service_key == "frontend" or "frontend" in self.service.name.lower():
+                # 前端服务：添加PORT环境变量（适配Create React App等）
+                env_vars['PORT'] = str(service_port)
+            elif self.service_key == "backend" or "backend" in self.service.name.lower():
+                # 后端服务：添加FLASK_RUN_PORT环境变量（适配Flask）
+                tech_stack = getattr(self.service, 'tech_stack', '').lower()
+                if 'flask' in tech_stack:
+                    env_vars['FLASK_RUN_PORT'] = str(service_port)
         success = process_manager.start_service(
             self.project.id,
             self.service_key,
-            self.service.command,
+            actual_command,
             cwd,
             env_vars
         )
@@ -544,13 +584,41 @@ class ProjectCard(ctk.CTkFrame):
                         if not messagebox.askyesno("端口冲突", msg):
                             continue
                 
+                # 生成实际的启动命令（使用command_template并替换变量）
+                actual_command = service.command
+                if hasattr(service, 'command_template') and service.command_template:
+                    # 准备替换变量
+                    replacements = {}
+                    if service_port:
+                        replacements['port'] = str(service_port)
+                    if hasattr(service, 'python_env') and service.python_env:
+                        replacements['python_env'] = f'"{service.python_env.path}"'
+                    
+                    # 替换模板中的变量
+                    actual_command = service.command_template
+                    for key, value in replacements.items():
+                        actual_command = actual_command.replace(f'{{{key}}}', value)
+                
                 # 启动服务
                 cwd = getattr(service, 'cwd', None) or getattr(service, 'working_dir', None) or self.project.path
                 env_vars = getattr(service, 'env', None) or getattr(service, 'env_vars', {})
+                if env_vars is None:
+                    env_vars = {}
+                
+                # 为不同类型的服务添加端口环境变量
+                if service_port:
+                    if service_key == "frontend" or "frontend" in service.name.lower():
+                        # 前端服务：添加PORT环境变量（适配Create React App等）
+                        env_vars['PORT'] = str(service_port)
+                    elif service_key == "backend" or "backend" in service.name.lower():
+                        # 后端服务：添加FLASK_RUN_PORT环境变量（适配Flask）
+                        tech_stack = getattr(service, 'tech_stack', '').lower()
+                        if 'flask' in tech_stack:
+                            env_vars['FLASK_RUN_PORT'] = str(service_port)
                 process_manager.start_service(
                     self.project.id,
                     service_key,
-                    service.command,
+                    actual_command,
                     cwd,
                     env_vars
                 )

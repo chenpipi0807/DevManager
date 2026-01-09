@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "last_updated": "2026-01-09T13:28:27.406528",
+  "last_updated": "2026-01-09T13:19:24.653795",
   "projects": [
     {
       "id": "fb7059b2-43c9-443e-a6a0-9717c6b7075a",
@@ -329,82 +329,6 @@
       },
       "created_at": "2026-01-09T13:18:37.447350",
       "updated_at": "2026-01-09T13:19:24.653795",
-      "last_run_at": null,
-      "config_version": "2.0"
-    },
-    {
-      "id": "298cada7-068e-4086-b65f-225950dd888b",
-      "name": "Y-MANIM",
-      "description": "",
-      "path": "C:/Manim-Y-V2",
-      "services": {
-        "backend": {
-          "enabled": true,
-          "name": "后端服务",
-          "service_type": "backend",
-          "tech_stack": "fastapi",
-          "working_dir": "C:/Manim-Y-V2\\web_app/backend",
-          "startup_file": "C:/Manim-Y-V2\\web_app/backend\\main.py",
-          "command": "\"C:\\ProgramData\\anaconda3\\python.exe\" -m uvicorn main:app --reload --port 8564",
-          "command_template": "{python_env} -m uvicorn main:app --reload --port {port}",
-          "port_config": {
-            "port": 8564,
-            "original_port": null,
-            "detected_port": null,
-            "port_source": "",
-            "port_source_file": "",
-            "mapped_port": null,
-            "confidence": 0.0
-          },
-          "python_env": {
-            "path": "C:\\ProgramData\\anaconda3\\python.exe",
-            "name": "anaconda3",
-            "version": "Python 3.12.4",
-            "is_conda": true
-          },
-          "env_vars": {},
-          "depends_on": [],
-          "log_file": "logs/Y-MANIM_backend.log",
-          "log_level": "INFO",
-          "auto_detected": false,
-          "last_modified": "2026-01-09T13:28:27.406528"
-        },
-        "frontend": {
-          "enabled": true,
-          "name": "前端服务",
-          "service_type": "frontend",
-          "tech_stack": "vite",
-          "working_dir": "C:/Manim-Y-V2\\web_app/frontend",
-          "startup_file": "C:/Manim-Y-V2\\web_app/frontend\\package.json",
-          "command": "npm run dev",
-          "command_template": "npm run dev -- --port {port}",
-          "port_config": {
-            "port": 3001,
-            "original_port": null,
-            "detected_port": null,
-            "port_source": "",
-            "port_source_file": "",
-            "mapped_port": null,
-            "confidence": 0.0
-          },
-          "python_env": null,
-          "env_vars": {},
-          "depends_on": [],
-          "log_file": "logs/Y-MANIM_frontend.log",
-          "log_level": "INFO",
-          "auto_detected": false,
-          "last_modified": "2026-01-09T13:28:27.406528"
-        }
-      },
-      "metadata": {
-        "tags": [],
-        "category": "",
-        "priority": "normal",
-        "status": "active",
-        "notes": ""
-      },
-      "created_at": "2026-01-09T13:28:27.406528",
-      "updated_at": "2026-01-09T13:28:27.406528",
       "last_run_at": null,
       "config_version": "2.0"
     }

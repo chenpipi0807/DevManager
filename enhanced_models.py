@@ -38,16 +38,18 @@ class PythonEnvironment:
 @dataclass
 class PortConfig:
     """端口配置"""
-    port: int  # 实际端口
-    detected_port: Optional[int] = None  # 检测到的端口
+    port: int  # 当前使用的端口
+    original_port: Optional[int] = None  # 原始检测到的端口（用于对比）
+    detected_port: Optional[int] = None  # 检测到的端口（兼容旧版）
     port_source: str = ""  # 端口来源（如 vite.config.js, .env）
     port_source_file: str = ""  # 端口来源文件路径
-    mapped_port: Optional[int] = None  # 映射端口（用于端口转发）
+    mapped_port: Optional[int] = None  # 映射端口（已废弃）
     confidence: float = 0.0  # 检测置信度
     
     def to_dict(self) -> dict:
         return {
             "port": self.port,
+            "original_port": self.original_port,
             "detected_port": self.detected_port,
             "port_source": self.port_source,
             "port_source_file": self.port_source_file,
@@ -59,6 +61,7 @@ class PortConfig:
     def from_dict(cls, data: dict) -> "PortConfig":
         return cls(
             port=data.get("port", 3000),
+            original_port=data.get("original_port"),
             detected_port=data.get("detected_port"),
             port_source=data.get("port_source", ""),
             port_source_file=data.get("port_source_file", ""),
