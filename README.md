@@ -2,11 +2,6 @@
 
 本地开发项目管理工具，统一管理多个前后端项目的启动、停止和端口配置。
 
-<img width="1803" height="1239" alt="image" src="https://github.com/user-attachments/assets/3744719c-6ac1-411b-8831-034be64f8309" />
-<img width="1197" height="1386" alt="image" src="https://github.com/user-attachments/assets/cf40dced-bbe5-4073-8bf0-d3273766560d" />
-<img width="1494" height="1086" alt="image" src="https://github.com/user-attachments/assets/2f13306b-168f-43da-b53e-c2415066544b" />
-
-
 ## 核心功能
 
 ### 项目管理
@@ -55,4 +50,3 @@ python main.py
 
 - `projects_v2.json` - 项目配置
 - `port_config.json` - 端口分配记录
-

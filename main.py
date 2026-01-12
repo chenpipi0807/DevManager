@@ -269,7 +269,20 @@ class ServiceFrame(ctk.CTkFrame):
 
         # 生成实际的启动命令（使用command_template并替换变量）
         actual_command = self.service.command
-        if hasattr(self.service, 'command_template') and self.service.command_template:
+        command_has_placeholders = (
+            isinstance(self.service.command, str)
+            and '{' in self.service.command
+            and '}' in self.service.command
+        )
+        if (
+            command_has_placeholders
+            and hasattr(self.service, 'command_template')
+            and self.service.command_template
+            and (
+                '{port}' in self.service.command_template
+                or '{python_env}' in self.service.command_template
+            )
+        ):
             # 准备替换变量
             replacements = {}
             if service_port:
@@ -586,7 +599,20 @@ class ProjectCard(ctk.CTkFrame):
                 
                 # 生成实际的启动命令（使用command_template并替换变量）
                 actual_command = service.command
-                if hasattr(service, 'command_template') and service.command_template:
+                command_has_placeholders = (
+                    isinstance(service.command, str)
+                    and '{' in service.command
+                    and '}' in service.command
+                )
+                if (
+                    command_has_placeholders
+                    and hasattr(service, 'command_template')
+                    and service.command_template
+                    and (
+                        '{port}' in service.command_template
+                        or '{python_env}' in service.command_template
+                    )
+                ):
                     # 准备替换变量
                     replacements = {}
                     if service_port:

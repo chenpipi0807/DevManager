@@ -63,9 +63,15 @@ class ProcessManager:
             logs.append(cwd_log)
             self._notify_log(key, cwd_log)
             
+            popen_command = command
+            if os.name == 'nt':
+                stripped = command.lstrip()
+                if stripped.startswith('&'):
+                    popen_command = stripped[1:].lstrip()
+
             # 启动进程 - 使用无缓冲模式
             process = subprocess.Popen(
-                command,
+                popen_command,
                 shell=True,
                 cwd=cwd,
                 env=full_env,

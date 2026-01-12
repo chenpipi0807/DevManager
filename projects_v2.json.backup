@@ -1,309 +1,24 @@
 {
   "version": "2.0",
-  "last_updated": "2026-01-09T13:19:24.653795",
+  "last_updated": "2026-01-12T13:17:24.912409",
   "projects": [
     {
-      "id": "fb7059b2-43c9-443e-a6a0-9717c6b7075a",
-      "name": "POLY-API跑批工具",
+      "id": "611394c4-e59e-4726-bac6-d247450839ef",
+      "name": "polydesigner-统一工具平台",
       "description": "",
-      "path": "C:/Batch-API",
-      "services": {
-        "backend": {
-          "enabled": true,
-          "name": "后端服务",
-          "service_type": "backend",
-          "tech_stack": "python",
-          "working_dir": "C:/Batch-API\\backend",
-          "startup_file": "C:/Batch-API\\backend\\run.py",
-          "command": "\"C:\\ProgramData\\anaconda3\\python.exe\" run.py",
-          "command_template": "{python_env} run.py",
-          "port_config": {
-            "port": 8547,
-            "original_port": 8547,
-            "detected_port": null,
-            "port_source": "",
-            "port_source_file": "",
-            "mapped_port": null,
-            "confidence": 0.0
-          },
-          "python_env": {
-            "path": "C:\\ProgramData\\anaconda3\\python.exe",
-            "name": "anaconda3",
-            "version": "Python 3.12.4",
-            "is_conda": true
-          },
-          "env_vars": {},
-          "depends_on": [],
-          "log_file": "logs/POLY-API跑批工具_backend.log",
-          "log_level": "INFO",
-          "auto_detected": false,
-          "last_modified": "2026-01-08T18:46:27.728109"
-        },
-        "frontend": {
-          "enabled": true,
-          "name": "前端服务",
-          "service_type": "frontend",
-          "tech_stack": "react",
-          "working_dir": "C:/Batch-API\\frontend",
-          "startup_file": "C:/Batch-API\\frontend\\package.json",
-          "command": "npm start",
-          "command_template": "npm start",
-          "port_config": {
-            "port": 3444,
-            "original_port": 3000,
-            "detected_port": null,
-            "port_source": "",
-            "port_source_file": "",
-            "mapped_port": null,
-            "confidence": 0.0
-          },
-          "python_env": null,
-          "env_vars": {
-            "PORT": "3444"
-          },
-          "depends_on": [],
-          "log_file": "logs/POLY-API跑批工具_frontend.log",
-          "log_level": "INFO",
-          "auto_detected": false,
-          "last_modified": "2026-01-08T18:46:27.728109"
-        }
-      },
-      "metadata": {
-        "tags": [],
-        "category": "",
-        "priority": "normal",
-        "status": "active",
-        "notes": ""
-      },
-      "created_at": "2026-01-08T18:46:27.728109",
-      "updated_at": "2026-01-09T12:59:03.283873",
-      "last_run_at": null,
-      "config_version": "2.0"
-    },
-    {
-      "id": "36cb1646-1bd1-4267-9125-2a075ce643d0",
-      "name": "二狗子-群发机器人",
-      "description": "",
-      "path": "C:/Bot-Webhook",
-      "services": {
-        "backend": {
-          "enabled": true,
-          "name": "后端服务",
-          "service_type": "backend",
-          "tech_stack": "python",
-          "working_dir": "C:/Bot-Webhook\\TrendRadar",
-          "startup_file": "C:/Bot-Webhook\\TrendRadar\\main.py",
-          "command": "\"C:\\ProgramData\\anaconda3\\python.exe\" main.py",
-          "command_template": "{python_env} main.py",
-          "port_config": {
-            "port": 8462,
-            "original_port": 8462,
-            "detected_port": null,
-            "port_source": "",
-            "port_source_file": "",
-            "mapped_port": null,
-            "confidence": 0.0
-          },
-          "python_env": {
-            "path": "C:\\ProgramData\\anaconda3\\python.exe",
-            "name": "anaconda3",
-            "version": "Python 3.12.4",
-            "is_conda": true
-          },
-          "env_vars": {},
-          "depends_on": [],
-          "log_file": "logs/二狗子-群发机器人_backend.log",
-          "log_level": "INFO",
-          "auto_detected": false,
-          "last_modified": "2026-01-08T18:50:07.264056"
-        }
-      },
-      "metadata": {
-        "tags": [],
-        "category": "",
-        "priority": "normal",
-        "status": "active",
-        "notes": ""
-      },
-      "created_at": "2026-01-08T18:50:07.264056",
-      "updated_at": "2026-01-09T12:59:03.285872",
-      "last_run_at": null,
-      "config_version": "2.0"
-    },
-    {
-      "id": "ac7d19de-e173-4353-9184-0a3461668465",
-      "name": "WAN2.6R2V",
-      "description": "",
-      "path": "C:/WAN26",
-      "services": {
-        "backend": {
-          "enabled": true,
-          "name": "后端服务",
-          "service_type": "backend",
-          "tech_stack": "fastapi",
-          "working_dir": "C:/WAN26\\project\\backend",
-          "startup_file": "C:/WAN26\\project\\backend\\main.py",
-          "command": "\"C:\\ProgramData\\anaconda3\\python.exe\" -m uvicorn main:app --reload --port 8006",
-          "command_template": "{python_env} -m uvicorn main:app --reload --port {port}",
-          "port_config": {
-            "port": 8006,
-            "original_port": 8006,
-            "detected_port": null,
-            "port_source": "",
-            "port_source_file": "",
-            "mapped_port": null,
-            "confidence": 0.0
-          },
-          "python_env": {
-            "path": "C:\\ProgramData\\anaconda3\\python.exe",
-            "name": "anaconda3",
-            "version": "Python 3.12.4",
-            "is_conda": true
-          },
-          "env_vars": {},
-          "depends_on": [],
-          "log_file": "logs/WAN2.6R2V_backend.log",
-          "log_level": "INFO",
-          "auto_detected": false,
-          "last_modified": "2026-01-08T19:22:05.436957"
-        },
-        "frontend": {
-          "enabled": true,
-          "name": "前端服务",
-          "service_type": "frontend",
-          "tech_stack": "vite",
-          "working_dir": "C:/WAN26\\project\\frontend",
-          "startup_file": "C:/WAN26\\project\\frontend\\package.json",
-          "command": "npm run dev",
-          "command_template": "npm run dev -- --port {port}",
-          "port_config": {
-            "port": 5173,
-            "original_port": 5173,
-            "detected_port": null,
-            "port_source": "",
-            "port_source_file": "",
-            "mapped_port": null,
-            "confidence": 0.0
-          },
-          "python_env": null,
-          "env_vars": {},
-          "depends_on": [],
-          "log_file": "logs/WAN2.6R2V_frontend.log",
-          "log_level": "INFO",
-          "auto_detected": false,
-          "last_modified": "2026-01-08T19:22:05.436957"
-        }
-      },
-      "metadata": {
-        "tags": [],
-        "category": "",
-        "priority": "normal",
-        "status": "active",
-        "notes": ""
-      },
-      "created_at": "2026-01-08T19:22:05.436957",
-      "updated_at": "2026-01-09T12:59:03.287872",
-      "last_run_at": null,
-      "config_version": "2.0"
-    },
-    {
-      "id": "5175397f-5fd9-4dbd-a66e-f524a0ad15a2",
-      "name": "Y-英语",
-      "description": "",
-      "path": "C:/YYY-YINGYU",
+      "path": "D:/Poly-designer-Tool",
       "services": {
         "backend": {
           "enabled": true,
           "name": "后端服务",
           "service_type": "backend",
           "tech_stack": "flask",
-          "working_dir": "C:/YYY-YINGYU",
-          "startup_file": "C:/YYY-YINGYU\\app.py",
-          "command": "\"C:\\ProgramData\\anaconda3\\python.exe\" app.py",
+          "working_dir": "D:/Poly-designer-Tool",
+          "startup_file": "D:/Poly-designer-Tool\\app.py",
+          "command": "\"C:\\Users\\ZYB\\AppData\\Local\\Programs\\Python\\Python312\\python.exe\" app.py",
           "command_template": "{python_env} app.py",
           "port_config": {
-            "port": 8123,
-            "original_port": 8123,
-            "detected_port": null,
-            "port_source": "",
-            "port_source_file": "",
-            "mapped_port": null,
-            "confidence": 0.0
-          },
-          "python_env": {
-            "path": "C:\\ProgramData\\anaconda3\\python.exe",
-            "name": "anaconda3",
-            "version": "Python 3.12.4",
-            "is_conda": true
-          },
-          "env_vars": {},
-          "depends_on": [],
-          "log_file": "logs/Y-英语_backend.log",
-          "log_level": "INFO",
-          "auto_detected": false,
-          "last_modified": "2026-01-09T12:16:05.492577"
-        }
-      },
-      "metadata": {
-        "tags": [],
-        "category": "",
-        "priority": "normal",
-        "status": "active",
-        "notes": ""
-      },
-      "created_at": "2026-01-09T12:16:05.492577",
-      "updated_at": "2026-01-09T12:59:03.288873",
-      "last_run_at": null,
-      "config_version": "2.0"
-    },
-    {
-      "id": "095a5c46-4049-42c4-9572-04953e0f2238",
-      "name": "seedance1.5",
-      "description": "",
-      "path": "C:/SD15-demo",
-      "services": {
-        "backend": {
-          "enabled": true,
-          "name": "后端服务",
-          "service_type": "backend",
-          "tech_stack": "fastapi",
-          "working_dir": "C:/SD15-demo\\backend",
-          "startup_file": "C:/SD15-demo\\backend\\main.py",
-          "command": "\"C:\\ProgramData\\anaconda3\\python.exe\" -m uvicorn main:app --reload --port 8765",
-          "command_template": "{python_env} -m uvicorn main:app --reload --port {port}",
-          "port_config": {
-            "port": 8661,
-            "original_port": 8765,
-            "detected_port": null,
-            "port_source": "",
-            "port_source_file": "",
-            "mapped_port": null,
-            "confidence": 0.0
-          },
-          "python_env": {
-            "path": "C:\\ProgramData\\anaconda3\\python.exe",
-            "name": "anaconda3",
-            "version": "Python 3.12.4",
-            "is_conda": true
-          },
-          "env_vars": {},
-          "depends_on": [],
-          "log_file": "logs/seedance1.5_backend.log",
-          "log_level": "INFO",
-          "auto_detected": false,
-          "last_modified": "2026-01-09T13:18:37.447350"
-        },
-        "frontend": {
-          "enabled": true,
-          "name": "前端服务",
-          "service_type": "frontend",
-          "tech_stack": "vite",
-          "working_dir": "C:/SD15-demo\\frontend",
-          "startup_file": "C:/SD15-demo\\frontend\\package.json",
-          "command": "npm run dev",
-          "command_template": "npm run dev -- --port {port}",
-          "port_config": {
-            "port": 5173,
+            "port": 5020,
             "original_port": null,
             "detected_port": null,
             "port_source": "",
@@ -311,13 +26,20 @@
             "mapped_port": null,
             "confidence": 0.0
           },
-          "python_env": null,
-          "env_vars": {},
+          "python_env": {
+            "path": "C:\\Users\\ZYB\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+            "name": "Python312",
+            "version": "Python 3.12.10",
+            "is_conda": false
+          },
+          "env_vars": {
+            "FLASK_RUN_PORT": "5020"
+          },
           "depends_on": [],
-          "log_file": "logs/seedance1.5_frontend.log",
+          "log_file": "logs/polydesigner-统一工具平台_backend.log",
           "log_level": "INFO",
           "auto_detected": false,
-          "last_modified": "2026-01-09T13:18:37.447350"
+          "last_modified": "2026-01-09T13:40:15.580744"
         }
       },
       "metadata": {
@@ -327,8 +49,8 @@
         "status": "active",
         "notes": ""
       },
-      "created_at": "2026-01-09T13:18:37.447350",
-      "updated_at": "2026-01-09T13:19:24.653795",
+      "created_at": "2026-01-09T13:40:15.580744",
+      "updated_at": "2026-01-09T13:40:15.580744",
       "last_run_at": null,
       "config_version": "2.0"
     }

@@ -170,7 +170,7 @@ class EnhancedProjectFormDialog(ctk.CTkToplevel):
             self.scroll_frame,
             width=500,
             height=35,
-            placeholder_text="{python_env} -m uvicorn main:app --reload --port {port}"
+            placeholder_text="{python_env} -m uvicorn main:app --host 0.0.0.0 --port {port}"
         )
         self.backend_cmd_template.pack(anchor="w")
         

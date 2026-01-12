@@ -79,7 +79,117 @@
       "tech_stack": "vite",
       "allocated_at": "2026-01-09T13:19:31.341091",
       "last_used": "2026-01-09T13:19:31.341091"
+    },
+    {
+      "port": 8123,
+      "project_id": "258e0aad-e9f4-49fb-b707-ca3062c1f582",
+      "project_name": "Y项目-英语",
+      "service_key": "backend",
+      "service_name": "后端服务",
+      "tech_stack": "python",
+      "allocated_at": "2026-01-12T12:51:53.333455",
+      "last_used": "2026-01-12T12:51:53.333455"
+    },
+    {
+      "port": 8888,
+      "project_id": "c69b5e3c-e022-49b9-bcf0-58a5d9169b24",
+      "project_name": "Y项目-语文",
+      "service_key": "backend",
+      "service_name": "后端服务",
+      "tech_stack": "python",
+      "allocated_at": "2026-01-12T12:51:54.438634",
+      "last_used": "2026-01-12T12:51:54.438634"
+    },
+    {
+      "port": 7997,
+      "project_id": "4836afc2-cbc6-4ac9-a95f-c1e87c33c200",
+      "project_name": "gemini3-demo",
+      "service_key": "backend",
+      "service_name": "后端服务",
+      "tech_stack": "flask",
+      "allocated_at": "2026-01-12T12:51:55.636385",
+      "last_used": "2026-01-12T12:51:55.636385"
+    },
+    {
+      "port": 8521,
+      "project_id": "01966787-5943-4699-9913-f4c36b7c83c5",
+      "project_name": "自由生图-验证工具",
+      "service_key": "backend",
+      "service_name": "后端服务",
+      "tech_stack": "flask",
+      "allocated_at": "2026-01-12T12:52:00.837221",
+      "last_used": "2026-01-12T12:52:00.837221"
+    },
+    {
+      "port": 8564,
+      "project_id": "cfc17bcb-52d2-4f4d-98ef-5c518c40c422",
+      "project_name": "Y项目-数学",
+      "service_key": "backend",
+      "service_name": "后端服务",
+      "tech_stack": "fastapi",
+      "allocated_at": "2026-01-12T12:52:02.152756",
+      "last_used": "2026-01-12T12:52:02.152756"
+    },
+    {
+      "port": 3001,
+      "project_id": "cfc17bcb-52d2-4f4d-98ef-5c518c40c422",
+      "project_name": "Y项目-数学",
+      "service_key": "frontend",
+      "service_name": "前端服务",
+      "tech_stack": "vite",
+      "allocated_at": "2026-01-12T12:52:02.152756",
+      "last_used": "2026-01-12T12:52:02.152756"
+    },
+    {
+      "port": 49158,
+      "project_id": "ede25cc9-efaa-4650-bc1a-a1b88507a3c7",
+      "project_name": "F项目-数学",
+      "service_key": "backend",
+      "service_name": "后端服务",
+      "tech_stack": "fastapi",
+      "allocated_at": "2026-01-12T12:51:43.802882",
+      "last_used": "2026-01-12T12:51:43.802882"
+    },
+    {
+      "port": 3818,
+      "project_id": "ede25cc9-efaa-4650-bc1a-a1b88507a3c7",
+      "project_name": "F项目-数学",
+      "service_key": "frontend",
+      "service_name": "前端服务",
+      "tech_stack": "vite",
+      "allocated_at": "2026-01-12T12:51:43.809494",
+      "last_used": "2026-01-12T12:51:43.809494"
+    },
+    {
+      "port": 8181,
+      "project_id": "c8a3b9e9-0727-47b0-a285-24e8d207dcde",
+      "project_name": "F项目-英语",
+      "service_key": "backend",
+      "service_name": "后端服务",
+      "tech_stack": "python",
+      "allocated_at": "2026-01-12T12:52:08.493880",
+      "last_used": "2026-01-12T12:52:08.493880"
+    },
+    {
+      "port": 8182,
+      "project_id": "94c428de-3cd5-4e08-8ed4-9362ae0e2b8d",
+      "project_name": "F项目-语文",
+      "service_key": "backend",
+      "service_name": "后端服务",
+      "tech_stack": "python",
+      "allocated_at": "2026-01-12T12:52:09.575158",
+      "last_used": "2026-01-12T12:52:09.575158"
+    },
+    {
+      "port": 5020,
+      "project_id": "611394c4-e59e-4726-bac6-d247450839ef",
+      "project_name": "polydesigner-统一工具平台",
+      "service_key": "backend",
+      "service_name": "后端服务",
+      "tech_stack": "python",
+      "allocated_at": "2026-01-12T12:52:14.843024",
+      "last_used": "2026-01-12T12:52:14.843024"
     }
   ],
-  "updated_at": "2026-01-09T13:19:31.341091"
+  "updated_at": "2026-01-12T12:52:14.843024"
 }

@@ -399,11 +399,11 @@ class EnhancedProjectDetector:
                 app_name = f"{startup_filename[:-3]}:app"
             
             if python_env:
-                command = f'"{python_env.path}" -m uvicorn {app_name} --reload --port {port_config.port}'
-                command_template = '{python_env} -m uvicorn ' + app_name + ' --reload --port {port}'
+                command = f'"{python_env.path}" -m uvicorn {app_name} --host 0.0.0.0 --port {port_config.port}'
+                command_template = '{python_env} -m uvicorn ' + app_name + ' --host 0.0.0.0 --port {port}'
             else:
-                command = f'python -m uvicorn {app_name} --reload --port {port_config.port}'
-                command_template = 'python -m uvicorn ' + app_name + ' --reload --port {port}'
+                command = f'python -m uvicorn {app_name} --host 0.0.0.0 --port {port_config.port}'
+                command_template = 'python -m uvicorn ' + app_name + ' --host 0.0.0.0 --port {port}'
         elif tech_stack == "flask":
             if python_env:
                 command = f'"{python_env.path}" {startup_filename}'
